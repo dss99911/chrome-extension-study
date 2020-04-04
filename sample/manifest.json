@@ -1,0 +1,45 @@
+{
+  "name": "Getting Started Example",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "manifest_version": 2,
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage"
+  ],
+//  "background": {
+//    "scripts": [
+//      "background.js"
+//    ],
+//    "persistent": false
+//  },
+  "background": {//if you want to use import. use this way.
+    "page": "background.html",
+    "persistent": false
+  },
+  "page_action": {//this action is deactivated at firstime. need to define the condition to activate and action as well.
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/get_started16.png",
+      "32": "images/get_started32.png",
+      "48": "images/get_started48.png",
+      "128": "images/get_started128.png"
+    }
+  },
+//  "browser_action": {//this action is always active. only one action can be specified among 'page_action', 'browser_action'
+//    "default_popup": "popup.html"
+//  },
+
+//  "options_page": "options.html", // shows option on new tab
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false //if true, show the ui on new tab. if not, shows on dialog. TODO : but when I test, shows dialog on settings tab. need to check
+  },
+  "icons": {
+    "16": "images/get_started16.png",
+    "32": "images/get_started32.png",
+    "48": "images/get_started48.png",
+    "128": "images/get_started128.png"
+  }
+}
