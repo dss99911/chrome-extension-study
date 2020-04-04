@@ -3,5 +3,9 @@
 -- <script src="popup.js" type="module"></script>
 - if you want to import files on background. use background.page
 
-```ln ./util/Preference.js ./<project-name>/util/Preference.js```
-```ln ./util/Tabs.js ./<project-name>/util/Tabs.js```
+```
+PROJECT_NAME=sample
+ln ./util/Preference.js "./$PROJECT_NAME/util/Preference.js"
+ln ./util/Tabs.js "./$PROJECT_NAME/util/Tabs.js"
+ln ./util/Tabs.js "./$PROJECT_NAME/util/ScreenUtil.js"
+```
