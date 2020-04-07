@@ -21,6 +21,7 @@ function init() {
 
     document.getElementById("whitelist").onkeyup = save;
     document.getElementById("whitelist").onclick = save;
+    document.getElementById("regex_default").innerText = bg.defaultOptions.regex
 
     allLoaded = true;
 
@@ -44,17 +45,22 @@ function init() {
 function save() {
     if (!allLoaded) return;
 
-    options.jira_path = document.getElementById("jira_path").value;
-    options.regex = document.getElementById("regex").value;
-    options.whitelist = bg.parseWhitelist(document.getElementById("whitelist").value);
+    let jira_path = document.getElementById("jira_path").value;
+    let regex = document.getElementById("regex").value;
+    let whitelist = bg.parseWhitelist(document.getElementById("whitelist").value);
 
     // Reset to defaults if settings are wiped
-    if (options.jira_path && options.jira_path.length == 0)
-        options.jira_path = 'https://jira.balancehero.cc/browse/';
-    if (options.backlist && options.backlist.length == 0)
-        options.whitelist = 'github.balancehero.cc';
-    if (options.regex && options.regex.length == 0)
-        options.regex = '([A-Z]{2,10}-[\\d]{1,6})|(Feature\\/[a-z]{2,10} [\\d]{1,6})|(Bugfix\\/[a-z]{2,10} [\\d]{1,6})|(Hotfix\\/[a-z]{2,10} [\\d]{1,6})|(Release\\/[a-z]{2,10} [\\d]{1,6})';
+    if (!jira_path || jira_path.length == 0) {
+        options.jira_path = bg.defaultOptions.jira_path
+    }
+
+    if (!regex || regex.length == 0) {
+        options.regex = bg.defaultOptions.regex
+    }
+
+    if (!whitelist || whitelist.length == 0) {
+        options.whitelist = bg.defaultOptions.whitelist
+    }
 
     localStorage["options"] = JSON.stringify(options);
     bg.options = options;

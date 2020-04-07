@@ -2,6 +2,10 @@ var jira_path, regex;
 
 function searchForKeyNames() {
     function createLinkFromNode(node, regex) {
+        if (node == null) {
+            return;
+        }
+
         var l, m;
         var txt = node.textContent.trim();
         var span = null;
@@ -58,17 +62,13 @@ function searchForKeyNames() {
     }
 
     if ('text/xml' != document.contentType && 'application/xml' != document.contentType) {
-
-        setTimeout(() => {
-            var node, allLinks = findTextNodes();
-            for (var i = 0; i < allLinks.length; i++) {
-                node = allLinks[i];
-                createLinkFromNode(node, regex);
-            }
-
-            let titleRegex = "(^|(?<=\\/))[a-zA-Z]{2,10} [\\d]{1,6}";
-            createLinkFromNode(findTitleTextNode(), titleRegex);
-        }, 1000);
+        var node, allLinks = findTextNodes();
+        for (var i = 0; i < allLinks.length; i++) {
+            node = allLinks[i];
+            createLinkFromNode(node, regex);
+        }
+        let titleRegex = "(^|(?<=\\/))[a-zA-Z]{2,10} [\\d]{1,6}";
+        createLinkFromNode(findTitleTextNode(), titleRegex);
     }
 
 }
@@ -95,6 +95,9 @@ function onMutation() {
 
 function findTitleTextNode() {
     let titleNode = document.getElementsByClassName("js-issue-title")[0];
+    if (titleNode == undefined) {
+        return null
+    }
     return titleNode.firstChild;
 }
 
