@@ -1,7 +1,7 @@
 var defaultOptions = {
     whitelist: 'github.balancehero.cc',
     jira_path: 'https://jira.balancehero.cc/browse/',
-    regex: '([a-zA-Z]{2,10}-[\\d]{1,6}|^[a-zA-Z]{2,10} [\\d]{1,6})'
+    regex: '([a-zA-Z]{2,10}-[\\d]{1,6})'
 
 };
 

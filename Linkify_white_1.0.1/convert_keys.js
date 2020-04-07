@@ -1,7 +1,7 @@
 var jira_path, regex;
 
 function searchForKeyNames() {
-    function createLinkFromNode(node) {
+    function createLinkFromNode(node, regex) {
         var l, m;
         var txt = node.textContent.trim();
         var span = null;
@@ -26,7 +26,7 @@ function searchForKeyNames() {
                 .replace(/\.*$/, '')
                 .replace(" ", "-");
 
-            console.log("jiraNumber: " + jiraNumber)
+            console.log("jiraNumber: " + jiraNumber);
 
             // Put in text up to the link
             span.appendChild(document.createTextNode(txt.substring(p, m.index)));
@@ -58,10 +58,17 @@ function searchForKeyNames() {
     }
 
     if ('text/xml' != document.contentType && 'application/xml' != document.contentType) {
-        setTimeout(() => {
-            createLinkFromNode(findTextNodes());
-        }, 1000);
 
+        setTimeout(() => {
+            var node, allLinks = findTextNodes();
+            for (var i = 0; i < allLinks.length; i++) {
+                node = allLinks[i];
+                createLinkFromNode(node, regex);
+            }
+
+            let titleRegex = "(^|(?<=\\/))[a-zA-Z]{2,10} [\\d]{1,6}";
+            createLinkFromNode(findTitleTextNode(), titleRegex);
+        }, 1000);
     }
 
 }
@@ -86,9 +93,28 @@ function onMutation() {
     observer.start();
 }
 
-function findTextNodes() {
+function findTitleTextNode() {
     let titleNode = document.getElementsByClassName("js-issue-title")[0];
     return titleNode.firstChild;
+}
+
+function findTextNodes(root) {
+    root = root || document.body;
+
+    var textNodes = [];
+
+    var ignoreTags = /^(?:a|noscript|option|script|style|textarea)$/i;
+    (function findTextNodes(node) {
+        node = node.firstChild;
+        while (node) {
+            if (node.nodeType == 3)
+                textNodes.push(node)
+            else if (!ignoreTags.test(node.nodeName))
+                findTextNodes(node)
+            node = node.nextSibling;
+        }
+    })(root);
+    return textNodes;
 }
 
 
