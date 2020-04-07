@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Linkify JIRA Issues: Options</title>
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+        
+        body {
+            margin: 20px;
+            font: 10px "Lucida Grande", verdana, sans-serif;
+            font-size: 12px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        textarea {
+            width: 500px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="install" style="display:none;">
+        <h1>First Time Installation</h1>
+        Before this extension can be used, you must change the JIRA path option below.<br /><br /> Some websites may not behave as expected with this extension, and a whitelist <br /> is provided which will allow you to conditionally disable this extension
+        on a <br /> per-domain basis, if needed.<br /><br /><br />
+    </div>
+
+    <h1>Linkify JIRA Issues: Options</h1>
+
+    <form id="options_form">
+        <label for="jira_path"> JIRA Browse Path: </label>
+        <input type="text" size="70" id="jira_path" /><br /><br />
+        <label for="whitelist"> Enable extension for the following domains (separate by commas): </label>
+        <textarea id="whitelist"></textarea><br /><br /><br />
+        <strong><em>Advanced Settings</em></strong>
+        <label for="regex"> Regular Expression to Match Against: </label>
+        <input type="text" size="150" id="regex" /><br /><small>default: ([A-Z]{2,10}-[\\d]{1,6})|(Feature\\/[a-z]{2,10} [\\d]{1,6})|(Bugfix\\/[a-z]{2,10} [\\d]{1,6})|(Hotfix\\/[a-z]{2,10} [\\d]{1,6})|(Release\\/[a-z]{2,10} [\\d]{1,6})</small>
+    </form>
+
+<br><br>
+<p>
+Original plugin:
+https://chrome.google.com/webstore/detail/linkify-jira-issues/ekbbnaokafbanjgmcbllligemhiclbcb
+</p>
+<p>
+Modified by: stanley.ko@balancehero.com
+</p>
+
+
+    <script src="js/options.js"></script>
+</body>
+
+</html>
