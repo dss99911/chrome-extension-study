@@ -58,8 +58,10 @@ function searchForKeyNames() {
     }
 
     if ('text/xml' != document.contentType && 'application/xml' != document.contentType) {
-        var node = findTextNodes();
-        createLinkFromNode(node);
+        setTimeout(() => {
+            createLinkFromNode(findTextNodes());
+        }, 1000);
+
     }
 
 }
@@ -91,6 +93,7 @@ function findTextNodes() {
 
 
 var options = {};
+
 chrome.runtime.sendMessage('get_options', function(options_) {
     options = options_;
 
