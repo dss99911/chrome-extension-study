@@ -1,20 +1,23 @@
-chrome.webRequest.onBeforeRequest.addListener(
-    function(details) {
-        //ex: http://ip-10-50-4-186.ap-south-1.compute.internal:8890/
-        let pattern = /(http:\/\/)ip-(\d+)-(\d+)-(\d+)-(\d+)\.[\w-]+\.[\w-]+\.[\w-]+([:/].*)/i;
-
-        let result = details.url.match(pattern);
-        if (result) {
-            return {redirectUrl: result[1] + result.slice(2, 6).join(".") + result[6]};
-
-        }
-        return {}
-    },
+chrome.runtime.onInstalled.addListener(() => {
+  const rules = [
     {
-        urls: [
-            "http://*.compute.internal/*"
-        ],
-        types: ["main_frame"]
-    },
-    ["blocking"]
-);
+      "id": 1,
+      "priority": 1,
+      "action": {
+        "type": "redirect",
+        "redirect": {
+          "regexSubstitution": "http://\\2.\\3.\\4.\\5\\6"
+        }
+      },
+      "condition": {
+        "regexFilter": "^(http:\\/\\/)ip-(\\d+)-(\\d+)-(\\d+)-(\\d+)\\.[\\w-]+\\.[\\w-]+\\.[\\w-]+([:\\/].*)",
+        "resourceTypes": ["main_frame"]
+      }
+    }
+  ];
+
+  chrome.declarativeNetRequest.updateDynamicRules({
+    removeRuleIds: rules.map(r => r.id),
+    addRules: rules
+  });
+});
