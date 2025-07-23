@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "http://\\2.\\3.\\4.\\5\\6"
+      }
+    },
+    "condition": {
+      "regexFilter": "^(http:\\/\\/)ip-(\\d+)-(\\d+)-(\\d+)-(\\d+)\\.[^\\/]+(:\\/.*)",
+      "resourceTypes": ["main_frame"]
+    }
+  }
+]
