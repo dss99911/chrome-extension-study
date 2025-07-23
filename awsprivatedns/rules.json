@@ -9,7 +9,7 @@
       }
     },
     "condition": {
-      "regexFilter": "^(http:\\/\\/)ip-(\\d+)-(\\d+)-(\\d+)-(\\d+)\\.[^\\/]+(:\\/.*)",
+      "regexFilter": "^(http:\\/\\/)ip-(\\d+)-(\\d+)-(\\d+)-(\\d+)\\.[\\w-]+\\.[\\w-]+\\.[\\w-]+([:\\/].*)",
       "resourceTypes": ["main_frame"]
     }
   }
